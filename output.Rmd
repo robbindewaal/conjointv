@@ -1,0 +1,47 @@
+```{r}
+# import packages 
+library(readxl)
+library(car)
+
+# import data
+group_membership <- read_excel("data/AllFields with group membership.xlsx")
+
+```
+
+```{r}
+summary(group_membership$`4 Group Membership`)
+```
+
+
+
+```{r}
+# Chi-square test
+chisq.test(group_membership$Gender, group_membership$`4 Group Membership`)
+```
+```{r}
+table(group_membership$`4 Group Membership`, group_membership$Gender)
+```
+
+
+
+
+ Levene's test 
+ (assumptions for ANOVA)
+```{r}
+
+group_aov <-  lm(group_membership$`4 Group Membership` ~ Age, data = group_membership)
+summary(group_aov)
+```
+
+```{r}
+help(aov)
+```
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
