@@ -1,47 +1,136 @@
 ```{r}
 # import packages 
 library(readxl)
+library(readxl)
 library(car)
+library(tidyverse)
+AllFields_segments<- read_excel("data/AllFields with group membership.xlsx")
+```
 
-# import data
-group_membership <- read_excel("data/AllFields with group membership.xlsx")
+```{r}
+# Chi-square test - For nominal or ordinal variables
+
+#Gender
+chisq.test(AllFields_segments$Gender)
+# education
+chisq.test(AllFields_segments$Education)
+# occupation
+chisq.test(AllFields_segments$Occupation)
+# Linear TV
+chisq.test(AllFields_segments$LinearTV)
+```
+
+```{r}
+# ANOVA - For ratio and interval variables
+age_aov <- aov(Age ~ AllFields_segments$`4 Group Membership`, data = AllFields_segments)
+summary(age_aov)
+
+streamingservices_aov <- aov(AllFields_segments$StreamingServices ~ AllFields_segments$`4 Group Membership`, data = AllFields_segments)
+summary(streamingservices_aov)
+
+tvknowledge_aov <- aov(TVknowledge_r1 ~ AllFields_segments$`4 Group Membership`, data = AllFields_segments)
+summary(tvknowledge_aov)
+```
+
+
+```{r}
+segment_1 <- subset(AllFields_segments, AllFields_segments$`4 Group Membership` == 1)
+segment_2 <- subset(AllFields_segments, AllFields_segments$`4 Group Membership` == 2)
+segment_3 <- subset(AllFields_segments, AllFields_segments$`4 Group Membership` == 3)
+segment_4 <- subset(AllFields_segments, AllFields_segments$`4 Group Membership` == 4)
+```
+
+
+TVknowledge
+```{r}
+# segment 1 
+mean(segment_1$TVknowledge_r1)
+
+# segment 2 
+mean(segment_2$TVknowledge_r1)
+
+# segment 3 
+mean(segment_3$TVknowledge_r1)
+
+# segment 4 
+mean(segment_4$TVknowledge_r1)
+
+```
+
+Age
+```{r}
+# segment 1 
+mean(segment_1$Age)
+
+# segment 2 
+mean(segment_2$Age)
+
+# segment 3 
+mean(segment_3$Age)
+
+# segment 4 
+mean(segment_4$Age)
+
+```
+
+Streaming services
+```{r}
+# segment 1 
+mean(segment_1$StreamingServices)
+
+# segment 2 
+mean(segment_2$StreamingServices)
+
+# segment 3 
+mean(segment_3$StreamingServices)
+
+# segment 4 
+mean(segment_4$StreamingServices)
+
+```
+
+income
+```{r}
+# segment 1 
+mean(segment_1$Income)
+
+# segment 2 
+mean(segment_2$Income)
+
+# segment 3 
+mean(segment_3$Income)
+
+# segment 4 
+mean(segment_4$Income)
 
 ```
 
 ```{r}
-summary(group_membership$`4 Group Membership`)
+# segment 1 
+mean(segment_1$Education)
+
+# segment 2 
+mean(segment_2$Education)
+
+# segment 3 
+mean(segment_3$Education)
+
+# segment 4 
+mean(segment_4$Education)
 ```
-
-
-
 ```{r}
-# Chi-square test
-chisq.test(group_membership$Gender, group_membership$`4 Group Membership`)
-```
-```{r}
-table(group_membership$`4 Group Membership`, group_membership$Gender)
-```
+# segment 1 
+mean(segment_1$Occupation)
 
+# segment 2 
+mean(segment_2$Occupation)
 
+# segment 3 
+mean(segment_3$Occupation)
 
-
- Levene's test 
- (assumptions for ANOVA)
-```{r}
-
-group_aov <-  lm(group_membership$`4 Group Membership` ~ Age, data = group_membership)
-summary(group_aov)
+# segment 4 
+mean(segment_4$Occupation)
 ```
 
-```{r}
-help(aov)
-```
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
+
